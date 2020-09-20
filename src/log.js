@@ -1,19 +1,22 @@
 // Get CLI attributes
 const isErrorPiped = process.argv.indexOf('--debug:stdout') >= 0;
 const isDebug = isErrorPiped || process.argv.indexOf('--debug') >= 0;
-
+const isQuiet = process.argv.indexOf('--quiet') >= 0;
 const { yellow, red, green, blue, bold, underscore, white } = require('@nexssp/ansi');
 
 const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
-  if (consoleType === 'error') {
-    if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
-  }
+  if (!isQuiet) {
+    if (consoleType === 'error') {
+      if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
+    }
 
-  console[consoleType](color(`${pre} ${args.join(' ')}`)); //.map(e => color(bold(e)))
+    console[consoleType](color(`${pre} ${args.join(' ')}`)); //.map(e => color(bold(e)))
+  }
 };
 
 const nexssDebug = (consoleType) => (pre) => (color = bold) => (...args) => {
-  if (isDebug || consoleType === 'error') {
+  if (isDebug) {
+    // always display error
     if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
     console[consoleType](color(`${pre}  ${args.join(' ')}`));
   }
@@ -45,4 +48,5 @@ module.exports = {
     console.log(bold(`======================== ${args.join('')} ========================`)),
   isErrorPiped,
   isDebug,
+  isQuiet,
 };

@@ -1,6 +1,6 @@
 const log = require('../src/log');
 const { bold } = require('@nexssp/ansi');
-console.log(bold('\n   >> Debug functions <<'));
+if (log.isDebug) console.log(bold('\n   >> Debug functions <<'));
 log.dy('\t Debug yellow: ' + bold('log.dy'));
 log.dr('\t Debug red: ' + bold('log.dr'));
 log.dg('\t Debug green: ' + bold('log.dg'));
@@ -8,7 +8,7 @@ log.di('\t Debug bold: ' + bold('log.di'));
 log.db('\t Debug blue: ' + bold('log.db'));
 log.du('\t Debug underscore: ' + bold('log.du'));
 
-console.log(bold('\n   >> Log functions <<'));
+if (!log.isQuiet) console.log(bold('\n   >> Log functions <<'));
 log.warn('\t Warning message ' + bold('log.warn'));
 log.error('\t error message ' + bold('log.error'));
 log.info('\t info message ' + bold('log.info'));
