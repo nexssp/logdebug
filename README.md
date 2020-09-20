@@ -2,6 +2,10 @@
 
 Easy loging/debuging. Going to stderr if `--debug`. You can change from stderr to stdout easy by another option `--debug:stdout`
 
+## Debug and Log functions and colors
+
+![Nexss Log and Debug functions](https://raw.githubusercontent.com/nexssp/log/master/nexssp_log_colors_and_messages.png)
+
 ## Parameters
 
 This library is designed just to use cli process.argv directly.
