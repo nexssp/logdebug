@@ -4,7 +4,7 @@ const packageJson = require('./package.json');
 
 module.exports = {
   entry: {
-    os: './src/index.js',
+    logdebug: './src/logdebug.js',
   },
   target: 'node',
   mode: 'production',
