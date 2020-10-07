@@ -2,7 +2,7 @@
 const isErrorPiped = process.argv.indexOf('--debug:stdout') >= 0;
 const isDebug = isErrorPiped || process.argv.indexOf('--debug') >= 0;
 const isQuiet = process.argv.indexOf('--quiet') >= 0;
-const { yellow, red, green, blue, bold, underscore, white } = require('@nexssp/ansi');
+const { yellow, red, green, blue, bold, underscore, white, magenta, cyan, grey } = require('@nexssp/ansi');
 
 const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
   if (!isQuiet) {
@@ -30,20 +30,23 @@ const dbg = (...args) => {
 
 module.exports = {
   dbg,
-  d: nexssDebug('error')('DEBUG')(), // debug normal
-  dy: nexssDebug('error')('DEBUG')(yellow), // debug yellow
-  dr: nexssDebug('error')('DEBUG')(red), // debug red
-  dg: nexssDebug('error')('DEBUG')(green), // debug green
-  db: nexssDebug('error')('DEBUG')(blue), // debug blue
-  di: nexssDebug('error')('DEBUG')(bold), // debug info/bolds
-  du: nexssDebug('error')('DEBUG')(underscore), // debug info/bolds
+  d: nexssDebug('error')('|')(), // debug normal
+  dy: nexssDebug('error')('|')(yellow), // debug yellow
+  dr: nexssDebug('error')('|')(red), // debug red
+  dg: nexssDebug('error')('|')(green), // debug green
+  dc: nexssDebug('error')('|')(cyan), // debug green
+  dm: nexssDebug('error')('|')(magenta), // debug green
+  db: nexssDebug('error')('|')(blue), // debug blue
+  di: nexssDebug('error')('|')(bold), // debug info/bolds
+  du: nexssDebug('error')('|')(underscore), // debug info/bolds
   // Log
-  warn: nexssLog('error')('WARN')(yellow),
-  error: nexssLog('error')('ERROR')(red),
-  info: nexssLog('error')('INFO')(white),
-  success: nexssLog('error')('SUCCESS')(green),
-  ok: nexssLog('error')('OK')(green),
-  trace: nexssLog('error')('TRACE')(green),
+  warn: nexssLog('error')('⁉ WARN')(yellow),
+  error: nexssLog('error')('× ERROR')(red),
+  info: nexssLog('error')('¡ INFO')(white),
+  success: nexssLog('error')('√ SUCCESS')(magenta),
+  important: nexssLog('error')('! IMPORTANT')(cyan),
+  ok: nexssLog('error')('√ OK')(green),
+  trace: nexssLog('error')('∇ TRACE')(grey),
   header: (...args) =>
     console.log(bold(`======================== ${args.join('')} ========================`)),
   isErrorPiped,
