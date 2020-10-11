@@ -2,7 +2,19 @@
 const isErrorPiped = process.argv.indexOf('--debug:stdout') >= 0;
 const isDebug = isErrorPiped || process.argv.indexOf('--debug') >= 0;
 const isQuiet = process.argv.indexOf('--quiet') >= 0;
-const { yellow, red, green, blue, bold, underscore, white, magenta, cyan, grey } = require('@nexssp/ansi');
+const {
+  yellow,
+  red,
+  green,
+  blue,
+  bold,
+  underscore,
+  white,
+  magenta,
+  cyan,
+  grey,
+} = require('@nexssp/ansi');
+const { inspect } = require('util');
 
 const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
   if (!isQuiet) {
@@ -10,7 +22,10 @@ const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
       if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
     }
 
-    console[consoleType](color(`${pre} ${args.join(' ')}`)); //.map(e => color(bold(e)))
+    console[consoleType](
+      color(`${pre}`),
+      ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
+    ); //.map(e => color(bold(e)))
   }
 };
 
@@ -18,7 +33,10 @@ const nexssDebug = (consoleType) => (pre) => (color = bold) => (...args) => {
   if (isDebug) {
     // always display error
     if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
-    console[consoleType](color(`${pre}  ${args.join(' ')}`));
+    console[consoleType](
+      color(`${pre}`),
+      ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
+    ); //.map(e => color(bold(e)))
   }
 };
 
