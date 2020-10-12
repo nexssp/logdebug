@@ -12,7 +12,6 @@
   "repository": "https://github.com/nexssp/logdebug.git",
   "scripts": {
     "build": "webpack --progress",
-    "prepublish": "npm run build",
     "check:format": "prettier -l src/**/*.js --verbose"
   },
   "main": "src/logdebug.js",
