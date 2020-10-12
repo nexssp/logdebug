@@ -1,7 +1,7 @@
 // Get CLI attributes
-const isErrorPiped = process.argv.indexOf('--debug:stdout') >= 0;
-const isDebug = isErrorPiped || process.argv.indexOf('--debug') >= 0;
-const isQuiet = process.argv.indexOf('--quiet') >= 0;
+const isErrorPiped = ~process.argv.indexOf('--debug:stdout');
+const isDebug = isErrorPiped || ~process.argv.indexOf('--debug');
+const isQuiet = ~process.argv.indexOf('--quiet');
 const {
   yellow,
   red,
@@ -23,7 +23,7 @@ const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
     }
 
     console[consoleType](
-      color(`${pre}`),
+      color(`${timestamp()} ${pre}`),
       ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
     ); //.map(e => color(bold(e)))
   }
@@ -34,7 +34,7 @@ const nexssDebug = (consoleType) => (pre) => (color = bold) => (...args) => {
     // always display error
     if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
     console[consoleType](
-      color(`${pre}`),
+      color(`${timestamp()} ${pre}`),
       ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
     ); //.map(e => color(bold(e)))
   }
@@ -71,3 +71,17 @@ module.exports = {
   isDebug,
   isQuiet,
 };
+
+// Below functions is borrowed from NodeJS sources. As there is util.log function depracated
+// we use it here
+function timestamp() {
+  const d = new Date();
+  const time = [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+function pad(n) {
+  return n.toString().padStart(2, '0');
+}
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
