@@ -1,6 +1,6 @@
 {
   "name": "@nexssp/logdebug",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Just log/debug for the Nexss Programmer",
   "keywords": [
     "log",
@@ -12,9 +12,10 @@
   "repository": "https://github.com/nexssp/logdebug.git",
   "scripts": {
     "build": "webpack --progress",
+    "prepublish": "npm run build",
     "check:format": "prettier -l src/**/*.js --verbose"
   },
-  "main": "dist/logdebug.js",
+  "main": "src/logdebug.js",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.11.6",
