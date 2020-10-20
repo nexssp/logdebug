@@ -1,7 +1,10 @@
 // Get CLI attributes
+let NEXSS_START_TIME = process.hrtime();
 const isErrorPiped = ~process.argv.indexOf('--debug:stdout');
 const isDebug = isErrorPiped || ~process.argv.indexOf('--debug');
 const isQuiet = ~process.argv.indexOf('--quiet');
+const isTime = ~process.argv.indexOf('--debug:ms');
+const isTimeDiff = ~process.argv.indexOf('--debug:diff');
 const {
   yellow,
   red,
@@ -16,6 +19,10 @@ const {
 } = require('@nexssp/ansi');
 const { inspect } = require('util');
 
+let f = timestamp;
+if (isTime || isTimeDiff) {
+  f = msTime;
+}
 const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
   if (!isQuiet) {
     if (consoleType === 'error') {
@@ -23,7 +30,7 @@ const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
     }
 
     console[consoleType](
-      color(`${timestamp()} ${pre}`),
+      color(`${f()} ${pre}`),
       ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
     ); //.map(e => color(bold(e)))
   }
@@ -34,7 +41,7 @@ const nexssDebug = (consoleType) => (pre) => (color = bold) => (...args) => {
     // always display error
     if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
     console[consoleType](
-      color(`${timestamp()} ${pre}`),
+      color(`${f()} ${pre}`),
       ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
     ); //.map(e => color(bold(e)))
   }
@@ -71,6 +78,20 @@ module.exports = {
   isDebug,
   isQuiet,
 };
+
+function msTime() {
+  const diff = process.hrtime(NEXSS_START_TIME);
+  let result = '';
+  if (diff[0] > 0) {
+    result += `${diff[0]} s `;
+  }
+
+  result += `${diff[1] / 1000000} ms`;
+  if (isTimeDiff) {
+    NEXSS_START_TIME = process.hrtime();
+  }
+  return result;
+}
 
 // Below functions is borrowed from NodeJS sources. As there is util.log function depracated
 // we use it here

@@ -1,5 +1,7 @@
 # @nexssp/log
 
+Note: _**See new time functions below 1.0.11+..**_
+
 Easy loging/debuging. Going to stderr if `--debug`. You can change from stderr to stdout easy by another option `--debug:stdout`. You can disable logs just by adding `--quiet`. Maybe you need just debug information, combine it with `--quiet --debug`.
 
 ## Debug and Log functions and colors
@@ -37,3 +39,18 @@ log.success('sucess message ' + bold('log.success'));
 log.ok('\t ok message ' + bold('log.ok'));
 log.trace('\t trace message ' + bold('log.trace'));
 ```
+
+## Time options (1.0.11+)
+
+#### --debug:ms
+
+displays time from the begining.
+
+![image](https://user-images.githubusercontent.com/8799218/96580565-c60e6480-12d8-11eb-82d0-e86516016299.png)
+
+#### --debug:diff
+
+Displays difference between each log.
+
+![image](https://user-images.githubusercontent.com/8799218/96580751-0b329680-12d9-11eb-888a-14c2ce2b9dc1.png)
+
