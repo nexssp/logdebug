@@ -12,6 +12,9 @@ log.db('Debug blue: ' + bold('log.db'));
 log.du('Debug underscore: ' + bold('log.du'));
 log.dr(1, 2, 3, { object: true });
 
+log.header('#1#');
+log.header('# Something Longer #');
+
 if (!log.isQuiet) console.log(bold('\n   >> Log functions << hide with --quiet'));
 log.warn('Warning message ' + bold('log.warn'));
 log.error('error message ' + bold('log.error'));

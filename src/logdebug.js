@@ -53,6 +53,10 @@ const dbg = (...args) => {
   }
 };
 
+String.prototype.pad = function (length, char = ' ') {
+  return this.padStart((this.length + length) / 2, char).padEnd(length, char);
+};
+
 module.exports = {
   dbg,
   d: nexssDebug('error')('|')(), // debug normal
@@ -72,8 +76,12 @@ module.exports = {
   important: nexssLog('error')('! IMPORTANT')(cyan),
   ok: nexssLog('error')('√ OK')(green),
   trace: nexssLog('error')('∇ TRACE')(grey),
-  header: (...args) =>
-    console.log(bold(`======================== ${args.join('')} ========================`)),
+  header: (...args) => {
+    const content = args.join('');
+    const columns = process.stdout.columns || 80; // FIXME: in some cases can be undefined.
+    // console.log(bold(`======================== ${args.join('')} ========================`));
+    console.log(bold(content.pad(columns, '=')));
+  },
   isErrorPiped,
   isDebug,
   isQuiet,

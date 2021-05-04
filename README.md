@@ -1,12 +1,16 @@
-# @nexssp/log
+# @nexssp/logdebug
 
-Note: _**See new time functions below 1.0.11+..**_
+Note: **1.0.12+**
+
+Now **header** function is size of terminal window.
+
+Note: **1.0.11+ See new time functions below ..**
 
 Easy loging/debuging. Going to stderr if `--debug`. You can change from stderr to stdout easy by another option `--debug:stdout`. You can disable logs just by adding `--quiet`. Maybe you need just debug information, combine it with `--quiet --debug`.
 
 ## Debug and Log functions and colors
 
-![Nexss Log and Debug functions](https://raw.githubusercontent.com/nexssp/log/master/nexssp_log_colors_and_messages.png)
+![Nexss Log and Debug functions](https://user-images.githubusercontent.com/53263666/117049034-f4530f00-ad13-11eb-95f1-a4d80e42ec7d.png)
 
 ## Parameters
 
@@ -53,4 +57,3 @@ displays time from the begining.
 Displays difference between each log.
 
 ![image](https://user-images.githubusercontent.com/8799218/96580751-0b329680-12d9-11eb-888a-14c2ce2b9dc1.png)
-
