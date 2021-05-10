@@ -1,7 +1,8 @@
 # @nexssp/logdebug
 
-Note: **1.0.12+**
+Note: **1.0.15** Now by default all logs and debug funcs goes to stdout - except error one. To move all of them to stderr: `--output:stderr`
 
+Note: **1.0.12+**
 Now **header** function is size of terminal window.
 
 Note: **1.0.11+ See new time functions below ..**

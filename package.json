@@ -1,6 +1,6 @@
 {
   "name": "@nexssp/logdebug",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Just log/debug for not only the Nexss Programmer..",
   "keywords": [
     "log",
@@ -24,7 +24,8 @@
   "main": "src/logdebug.js",
   "license": "MIT",
   "dependencies": {
-    "@nexssp/ansi": "^1.1.1"
+    "@nexssp/ansi": "^1.1.1",
+    "@nexssp/extend": "^1.0.8"
   },
   "bugs": {
     "url": "https://github.com/nexssp/logdebug/issues",
