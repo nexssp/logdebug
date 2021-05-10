@@ -2,7 +2,7 @@
 let NEXSS_START_TIME = process.hrtime();
 const isErrorPiped =
   process.argv.indexOf('--debug:stdout') >= 0 || process.argv.indexOf('--nxsPipeErrors') >= 0;
-const isDebug = isErrorPiped || ~process.argv.indexOf('--debug');
+const isDebug = ~process.argv.indexOf('--debug');
 const isQuiet = ~process.argv.indexOf('--quiet');
 const isTime = ~process.argv.indexOf('--debug:ms');
 const isTimeDiff = ~process.argv.indexOf('--debug:diff');
@@ -39,12 +39,10 @@ const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
 
 const nexssDebug = (consoleType) => (pre) => (color = bold) => (...args) => {
   if (isDebug) {
-    // always display error
-    if (isErrorPiped) consoleType = 'log'; // Pipe erorrs to stdout (eg for testing purposes)
     console[consoleType](
       color(`${f()} ${pre}`),
       ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
-    ); //.map(e => color(bold(e)))
+    );
   }
 };
 
