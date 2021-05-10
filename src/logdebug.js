@@ -1,6 +1,7 @@
 // Get CLI attributes
 let NEXSS_START_TIME = process.hrtime();
-const isErrorPiped = ~process.argv.indexOf('--debug:stdout');
+const isErrorPiped =
+  process.argv.indexOf('--debug:stdout') >= 0 || process.argv.indexOf('--nxsPipeErrors') >= 0;
 const isDebug = isErrorPiped || ~process.argv.indexOf('--debug');
 const isQuiet = ~process.argv.indexOf('--quiet');
 const isTime = ~process.argv.indexOf('--debug:ms');
