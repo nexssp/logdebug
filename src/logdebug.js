@@ -1,13 +1,13 @@
 // Get CLI attributes
-let NEXSS_START_TIME = process.hrtime();
+let NEXSS_START_TIME = process.hrtime()
 const isErrorPiped =
-  process.argv.indexOf('--debug:stdout') >= 0 || process.argv.indexOf('--nxsPipeErrors') >= 0;
-const isDebug = ~process.argv.indexOf('--debug');
-const isQuiet = ~process.argv.indexOf('--quiet');
-const isTime = ~process.argv.indexOf('--debug:ms');
-const isTimeDiff = ~process.argv.indexOf('--debug:diff');
-require('@nexssp/extend')('string');
-let defaultConsoleType = process.argv.indexOf('--output:stderr') >= 0 ? 'error' : 'log';
+  process.argv.indexOf('--debug:stdout') >= 0 || process.argv.indexOf('--nxsPipeErrors') >= 0
+const isDebug = ~process.argv.indexOf('--debug')
+const isQuiet = ~process.argv.indexOf('--quiet')
+const isTime = ~process.argv.indexOf('--debug:ms')
+const isTimeDiff = ~process.argv.indexOf('--debug:diff')
+const { pad } = require('@nexssp/extend/string')
+let defaultConsoleType = process.argv.indexOf('--output:stderr') >= 0 ? 'error' : 'log'
 
 const {
   yellow,
@@ -20,40 +20,48 @@ const {
   magenta,
   cyan,
   grey,
-} = require('@nexssp/ansi');
-const { inspect } = require('util');
+} = require('@nexssp/ansi')
+const { inspect } = require('util')
 
-let f = timestamp;
+let f = timestamp
 if (isTime || isTimeDiff) {
-  f = msTime;
+  f = msTime
 }
-const nexssLog = (consoleType) => (pre) => (color = bold) => (...args) => {
-  if (!isQuiet) {
-    if (consoleType === 'error' && isErrorPiped) {
-      consoleType = 'log'; // Pipe errors to stdout (eg for testing purposes)
+const nexssLog =
+  (consoleType) =>
+  (pre) =>
+  (color = bold) =>
+  (...args) => {
+    if (!isQuiet) {
+      if (consoleType === 'error' && isErrorPiped) {
+        consoleType = 'log' // Pipe errors to stdout (eg for testing purposes)
+      }
+
+      console[consoleType](
+        color(`${f()} ${pre}`),
+        ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
+      ) //.map(e => color(bold(e)))
     }
-
-    console[consoleType](
-      color(`${f()} ${pre}`),
-      ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
-    ); //.map(e => color(bold(e)))
   }
-};
 
-const nexssDebug = (consoleType) => (pre) => (color = bold) => (...args) => {
-  if (isDebug) {
-    console[consoleType](
-      color(`${f()} ${pre}`),
-      ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
-    );
+const nexssDebug =
+  (consoleType) =>
+  (pre) =>
+  (color = bold) =>
+  (...args) => {
+    if (isDebug) {
+      console[consoleType](
+        color(`${f()} ${pre}`),
+        ...args.map((e) => (typeof e === 'object' ? color(`${inspect(e)}`) : color(`${e}`)))
+      )
+    }
   }
-};
 
 const dbg = (...args) => {
   if (isDebug) {
-    console.log(...args);
+    console.log(...args)
   }
-};
+}
 
 module.exports = {
   defaultConsoleType,
@@ -76,40 +84,40 @@ module.exports = {
   ok: nexssLog(defaultConsoleType)('√ OK')(green),
   trace: nexssLog(defaultConsoleType)('∇ TRACE')(grey),
   header: (...args) => {
-    const content = args.join('');
-    const columns = process.stdout.columns || 80; // FIXME: in some cases can be undefined.
+    const content = args.join('')
+    const columns = process.stdout.columns || 80 // FIXME: in some cases can be undefined.
     // console.log(bold(`======================== ${args.join('')} ========================`));
-    console.log(bold(content.pad(columns, '=')));
+    console.log(bold(pad(content, columns, '=')))
   },
   isErrorPiped,
   isDebug,
   isQuiet,
-};
+}
 
 function msTime() {
-  const diff = process.hrtime(NEXSS_START_TIME);
-  let result = '';
+  const diff = process.hrtime(NEXSS_START_TIME)
+  let result = ''
   if (diff[0] > 0) {
-    result += `${diff[0]} s `;
+    result += `${diff[0]} s `
   }
 
-  result += `${diff[1] / 1000000} ms`;
+  result += `${diff[1] / 1000000} ms`
   if (isTimeDiff) {
-    NEXSS_START_TIME = process.hrtime();
+    NEXSS_START_TIME = process.hrtime()
   }
-  return result;
+  return result
 }
 
 // Below functions is borrowed from NodeJS sources. As there is util.log function depracated
 // we use it here
 function timestamp() {
-  const d = new Date();
-  const time = [pad(d.getHours()), pad(d.getMinutes()), pad(d.getSeconds())].join(':');
-  return [d.getDate(), months[d.getMonth()], time].join(' ');
+  const d = new Date()
+  const time = [pad0(d.getHours()), pad0(d.getMinutes()), pad0(d.getSeconds())].join(':')
+  return [d.getDate(), months[d.getMonth()], time].join(' ')
 }
 
-function pad(n) {
-  return n.toString().padStart(2, '0');
+function pad0(n) {
+  return n.toString().padStart(2, '0')
 }
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
