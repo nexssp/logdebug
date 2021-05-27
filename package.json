@@ -19,6 +19,7 @@
     "url": "git+ssh://git@github.com/nexssp/logdebug.git"
   },
   "scripts": {
+    "test": "nexssp-test --debug",
     "build": "npx @nexssp/min"
   },
   "main": "src/logdebug.js",
@@ -30,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/nexssp/logdebug/issues",
     "email": "mapoart@gmail.com"
+  },
+  "devDependencies": {
+    "@nexssp/test": "^1.1.2"
   }
 }

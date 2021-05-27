@@ -24,3 +24,11 @@ log.success(' sucess message ' + bold('log.success'))
 log.ok('ok message ' + bold('log.ok'))
 log.trace('trace message ' + bold('log.trace'))
 log.info(1, 2, 3, { object: true })
+
+class MyClass {
+  constructor(x) {
+    this.x = x
+  }
+}
+
+const cl = new MyClass()

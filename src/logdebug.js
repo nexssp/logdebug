@@ -2,13 +2,16 @@
 let NEXSS_START_TIME = process.hrtime()
 const isErrorPiped =
   process.argv.indexOf('--debug:stdout') >= 0 || process.argv.indexOf('--nxsPipeErrors') >= 0
-const isDebug = ~process.argv.indexOf('--debug')
+const isDebug =
+  ~process.argv.indexOf('--debug') ||
+  ~process.argv.indexOf('--debug:all') ||
+  ~process.argv.indexOf('--debug:diff') ||
+  ~process.argv.indexOf('--debug:ms')
 const isQuiet = ~process.argv.indexOf('--quiet')
 const isTime = ~process.argv.indexOf('--debug:ms')
 const isTimeDiff = ~process.argv.indexOf('--debug:diff')
 const { pad } = require('@nexssp/extend/string')
 let defaultConsoleType = process.argv.indexOf('--output:stderr') >= 0 ? 'error' : 'log'
-
 const {
   yellow,
   red,
@@ -92,6 +95,7 @@ module.exports = {
   isErrorPiped,
   isDebug,
   isQuiet,
+  nexssLog,
 }
 
 function msTime() {
