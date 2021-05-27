@@ -52,7 +52,7 @@ const applyTracker = (o, title, { enable } = {}) => {
 
   Object.getOwnPropertyNames(o).forEach((name) => {
     if (typeof o[name] === 'function') {
-      console.log('Tracking enabled: ' + name)
+      // console.log('Tracking enabled: ' + name)
       o[name] = trackFunction(o[name])
     }
   })
