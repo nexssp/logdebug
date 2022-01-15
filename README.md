@@ -1,5 +1,7 @@
 # @nexssp/logdebug
 
+**15.01.2022 Upgrade** - Now works also with `import` as module.
+
 ## News
 
 - New **1.0.17**: tracking functions. `--debug:all` or `--debug:tracker` more below

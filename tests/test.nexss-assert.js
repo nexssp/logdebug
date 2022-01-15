@@ -1,4 +1,4 @@
-const log = require('../src/logdebug')
+const log = require('../')
 const { bold } = require('@nexssp/ansi')
 
 if (log.isDebug) console.log(bold('\n   >> Debug functions << show with --debug'))

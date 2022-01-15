@@ -2,10 +2,26 @@
   "name": "@nexssp/logdebug",
   "version": "1.0.18",
   "description": "Just log/debug for not only the Nexss Programmer..",
+  "exports": {
+    ".": {
+      "node": {
+        "import": "./index.mjs",
+        "require": "./index.js"
+      }
+    },
+    "./tracker": "./tracker.js"
+  },
+  "files": [
+    "index.js",
+    "index.mjs",
+    "tracker.js"
+  ],
   "keywords": [
     "log",
     "debug",
     "error",
+    "tracker",
+    "nexss",
     "nexss programmer"
   ],
   "author": {
@@ -19,20 +35,16 @@
     "url": "git+ssh://git@github.com/nexssp/logdebug.git"
   },
   "scripts": {
-    "test": "nexssp-test --debug",
+    "test": "npx @nexssp/test --debug",
     "build": "npx @nexssp/min"
   },
-  "main": "src/logdebug.js",
   "license": "MIT",
   "dependencies": {
-    "@nexssp/ansi": "^1.1.2",
-    "@nexssp/extend": "^2.0.1"
+    "@nexssp/ansi": "^1.1.4",
+    "@nexssp/extend": "^2.0.9"
   },
   "bugs": {
     "url": "https://github.com/nexssp/logdebug/issues",
     "email": "mapoart@gmail.com"
-  },
-  "devDependencies": {
-    "@nexssp/test": "^1.1.2"
   }
 }

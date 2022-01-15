@@ -114,6 +114,9 @@ function msTime() {
 
 // Below functions is borrowed from NodeJS sources. As there is util.log function depracated
 // we use it here
+
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
 function timestamp() {
   const d = new Date()
   const time = [pad0(d.getHours()), pad0(d.getMinutes()), pad0(d.getSeconds())].join(':')
@@ -123,5 +126,3 @@ function timestamp() {
 function pad0(n) {
   return n.toString().padStart(2, '0')
 }
-
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
