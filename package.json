@@ -1,6 +1,6 @@
 {
   "name": "@nexssp/logdebug",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Just log/debug for not only the Nexss Programmer..",
   "exports": {
     ".": {
