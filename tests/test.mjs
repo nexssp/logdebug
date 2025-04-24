@@ -1,3 +1,3 @@
-import log from '../index.mjs'
+import log from '..'
 
 console.log(log)

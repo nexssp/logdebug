@@ -1,5 +1,6 @@
 # @nexssp/logdebug
 
+**25.06.2024 TypeScript Support** - Added TypeScript type definitions for better development experience.
 **15.01.2022 Upgrade** - Now works also with `import` as module.
 
 ## News
